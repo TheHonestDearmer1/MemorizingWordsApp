@@ -28,3 +28,6 @@ export const isWap = () => {
   }
   
   export const Url = "45.40.228.46:5173"
+  export const appid = "20231108001873712"
+  export const MIYAO = "lCWGFBifFeEfKF55N8KS"
+  export const FANYIAPI = "https://fanyi-api.baidu.com/api/trans/vip/translate"
