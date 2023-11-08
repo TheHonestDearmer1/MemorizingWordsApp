@@ -6,6 +6,7 @@
     element-loading-svg-view-box="-10, -10, 50, 50"
     element-loading-background="rgba(122, 122, 122, 0.8)"
     empty-text="暂无数据"
+    @current-change="loadBefore"
     :data="filterTableData" style="width: 100%" @expand-change="GetApiOfBaidu">
       <el-table-column label="单词" prop="word" />
       <el-table-column type="expand"
@@ -62,6 +63,9 @@ const data = reactive([]);
       data.splice(0, data.length); // 清空数组
       data.push(...response.data.DataList);
       loading.value = false;
+      data.forEach(function(item){
+        GetMean(item);
+      })
     }
   })
   .catch(function (error) {
@@ -119,7 +123,10 @@ const data = reactive([]);
     console.log(index, row.id)
   }
   //展开详细的单词信息自动读取翻译
-  function GetApiOfBaidu(row){
+  function loadBefore(row){
+    GetMean(row);
+  }
+  function GetMean(row){
     const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
     const str = appid+row.word+randomInt+MIYAO
     const sign = md5(str).toLowerCase();
@@ -141,6 +148,9 @@ const data = reactive([]);
   .catch(function (error) {
     console.log(error);
   });
+  }
+  function GetApiOfBaidu(row){
+     GetMean(row);
   }
   
   </script>
