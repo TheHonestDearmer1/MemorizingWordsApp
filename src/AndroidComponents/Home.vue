@@ -1,6 +1,6 @@
 <template>
   <div class="new" style="display:grid;">
-   <word-list @CAWord="CAWord" ></word-list>
+    <div style="display: grid; grid-template-rows: 6fr 2fr"> <word-list @CAWord="CAWord" ></word-list><div></div></div>
   <AddWord v-if="boolwordadd" style="position: fixed;
   bottom: 0%; z-index: 1;"  @CAWord="CAWord"></AddWord>
   <ChangeWord  v-if="!boolwordadd" style="position: fixed;
