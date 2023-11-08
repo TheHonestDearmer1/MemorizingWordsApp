@@ -2,9 +2,9 @@
   <div class="new" style="display:grid;">
    <word-list @CAWord="CAWord" ></word-list>
   <AddWord v-if="boolwordadd" style="position: fixed;
-  bottom: 0%;"  @CAWord="CAWord"></AddWord>
+  bottom: 0%; z-index: 1;"  @CAWord="CAWord"></AddWord>
   <ChangeWord  v-if="!boolwordadd" style="position: fixed;
-  bottom: 0%;"  @CAWord="CAWord" :ID="changeID"></ChangeWord>
+  bottom: 0%; z-index: 1;"  @CAWord="CAWord" :ID="changeID"></ChangeWord>
   </div>
 </template>
 <script setup>

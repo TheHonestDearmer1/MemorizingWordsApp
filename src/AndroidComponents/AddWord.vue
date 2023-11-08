@@ -1,5 +1,5 @@
 <template>
-    <div class="demo-collapse" style="width: 100%" >
+    <div class="demo-collapse" style="width: 100%;" >
       <el-collapse>
         <el-collapse-item title="添加单词" name="1" style="width: 100%; ">
             <el-form
