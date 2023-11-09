@@ -41,8 +41,8 @@
   import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { computed, onBeforeMount, reactive, ref } from 'vue'
-import { appid, FANYIAPI, MIYAO, Url } from '../untils/IsWap';
-import md5 from 'js-md5';
+import { appid, MIYAO, Url } from '../untils/IsWap';
+import { md5 } from 'js-md5';
 
 const BaiduMean = ref(true);
 const loading = ref(true);
@@ -65,6 +65,7 @@ const data = reactive([]);
       loading.value = false;
       data.forEach(function(item){
         GetMean(item);
+
       })
     }
   })
@@ -127,8 +128,24 @@ const data = reactive([]);
     GetMean(row);
   }
   function GetMean(row){
+    if(row.word.indexOf(' ') !== -1){
+      GetWordListData(row);
+    }else{ 
+      axios.get('http://'+Url+'/GetBaiduFanyi',{  params:{
+      word : row.word
+    }}
+  ).then((response)=>{
+    row.RealMean = response.data.status_msg;
+    })
+  }
+  }
+  function GetApiOfBaidu(row){
+     GetMean(row);
+  }
+  
+  function GetWordListData(row){
     const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
-    const str = appid+row.word+randomInt+MIYAO
+    const str = appid+row.word+randomInt+MIYAO;
     const sign = md5(str).toLowerCase();
     axios.get('./demo',{
     params: {
@@ -137,7 +154,7 @@ const data = reactive([]);
       to:"zh",
       appid: appid,
       salt:randomInt,
-      sign
+      sign:sign
     },headers:{
 		'Access-Control-Allow-Origin':'*',//允许跨域
         'Content-Type':'application/x-www-form-urlencoded'
@@ -149,8 +166,4 @@ const data = reactive([]);
     console.log(error);
   });
   }
-  function GetApiOfBaidu(row){
-     GetMean(row);
-  }
-  
   </script>
